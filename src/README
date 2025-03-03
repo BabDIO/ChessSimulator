@@ -1,0 +1,101 @@
+
+
+markdown:src/README
+# Documentation AfoRA-Echec-Game
+
+## Structure du projet
+
+### Package com.chess
+MainGUI.java : Point d'entrée de l'application graphique
+  main(String[] args) : Démarre l'interface graphique
+
+### Package com.chess.gui
+- EcranAccueil.java : Interface d'accueil du jeu
+  - initComposants() : Initialise les composants graphiques
+  - createStyledComboPanel() : Crée les menus déroulants stylisés
+  - styleButton(): Applique le style aux boutons
+  - demarrerPartie() : Lance une nouvelle partie
+
+- ChessGUI.java : Interface principale du jeu
+  - initGUI() : Initialise l'interface du jeu
+  - actualiserEchiquier() : Met à jour l'affichage
+  - gererClic() : Gère les clics sur l'échiquier
+  - effectuerCoup() : Exécute un mouvement
+  - jouerCoupIA() : Fait jouer l'IA
+
+### Package com.chess.model
+- Piece.java (classe abstraite)
+  - Attributs :
+    - position : Position actuelle de la pièce
+    - couleur : Couleur de la pièce (BLANC/NOIR)
+  - Méthodes :
+    - peutSeDeplacer() : Vérifie si un déplacement est légal
+    - getPosition(), setPosition() : Accesseurs
+    - getCouleur() : Retourne la couleur
+
+- Classes des pièces (héritent de Piece)
+  - Pion.java, Tour.java, Cavalier.java, Fou.java, Reine.java, Roi.java
+  - Chacune implémente sa propre logique de déplacement
+
+- Echiquier.java : Gestion du plateau
+  - initialiser() : Place les pièces
+  - deplacerPiece() : Déplace une pièce
+  - getPiece() : Récupère une pièce à une position
+  - estPositionMenacee() : Vérifie si une position est menacée
+
+### Package com.chess.ai
+- ChessAI.java : Intelligence artificielle
+  - Constantes :
+    - Valeurs des pièces (VALEUR_PION, VALEUR_CAVALIER, etc.)
+    - Bonus/Malus positionnels
+  
+  - Méthodes principales :
+    - calculerMeilleurCoup() : Détermine le meilleur coup à jouer
+    - negamax() : Implémente l'algorithme Negamax avec élagage
+    - evaluerPosition() : Évalue une position donnée
+  
+  - Méthodes utilitaires :
+    - genererTousLesCoupsValides() : Liste tous les coups possibles
+    - estProtegee() : Vérifie si une pièce est protégée
+    - estAttaquee() : Vérifie si une pièce est menacée
+    - estAuCentre() : Vérifie si une position est centrale
+
+## Niveaux de difficulté de l'IA
+- Facile (profondeur 2) : Inclut de l'aléatoire
+- Moyen (profondeur 3) : Jeu standard
+- Difficile (profondeur 4) : Analyse plus profonde
+
+## Système de points de l'IA
+- Pion : 100 points
+- Cavalier : 320 points
+- Fou : 330 points
+- Tour : 500 points
+- Reine : 900 points
+- Roi : 20000 points
+
+Bonus additionnels :
+- Contrôle du centre : +30 points
+- Pièce protégée : +20 points
+- Pièce attaquée : -25 points
+
+## Compilation et Exécution
+bash
+# Compilation
+javac -d bin src/com/chess/MainGUI.java
+
+# Exécution
+java -cp bin com.chess.MainGUI
+
+
+## Notes de développement
+- L'interface utilise Swing avec un look and feel moderne
+- L'IA utilise l'algorithme Negamax avec élagage Alpha-Bêta
+- Les images et sons sont chargés depuis le dossier resources/
+
+
+Cette documentation :
+1. Décrit la structure du projet
+2. Détaille les classes et méthodes principales
+3. Explique le fonctionnement de l'IA
+4. Fournit les instructions de compilation
+5. Inclut des notes techniques importantes
